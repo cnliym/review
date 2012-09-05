@@ -10,7 +10,7 @@
 
 * 叶永仪
   * code [pageflip.js](https://github.com/vmarket/review/blob/master/page/pageflip.js)
-  * demo [scroll](https://github.com/vmarket/review/blob/master/page/pages.html)
+  * demo [scroll](http://fed.ued.taobao.net/u/yenn/pages.html)
 * 刘文炳
 
 
