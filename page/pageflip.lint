@@ -1,0 +1,18 @@
+|| pageflip.js(2): warning: variable S hides argument
+|| pageflip.js(18): lint warning: empty statement or extra semicolon
+|| pageflip.js(29): lint warning: parseInt missing radix parameter
+|| pageflip.js(67): warning: redeclaration of var i
+|| pageflip.js(71): warning: redeclaration of var i
+|| pageflip.js(81): warning: redeclaration of var i
+|| pageflip.js(88): warning: redeclaration of var i
+|| pageflip.js(113): lint warning: missing semicolon
+|| pageflip.js(115): lint warning: missing semicolon
+|| pageflip.js(121): lint warning: missing semicolon
+|| pageflip.js(122): lint warning: missing semicolon
+|| pageflip.js(130): warning: redeclaration of var num
+|| pageflip.js(132): lint warning: missing semicolon
+|| pageflip.js(134): warning: redeclaration of var num
+|| pageflip.js(142): lint warning: missing semicolon
+|| pageflip.js(155): lint warning: missing semicolon
+|| pageflip.js(165): lint warning: missing semicolon
+|| pageflip.js(167): lint warning: missing semicolon
