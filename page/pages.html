@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+    <link rel="stylesheet" href="http://a.tbcdn.cn/??p/global/1.0/global-min.css,tbsp/tbsp.css" />
+    <script src="http://a.tbcdn.cn/??s/kissy/1.3.0rc/kissy-min.js,p/global/1.0/global-min.js,/p/market/r/120507/market-min.js?t=2012071220100214.js"></script>
+<style type="text/css">
+.page-box{overflow:hidden; margin:10px;}
+
+/*================= 皮肤样式 =================*/
+/*蓝色 提交*/
+.blue-page-skin{padding:3px;}
+.blue-page-skin a{border:1px solid #ddd; padding:2px 5px; margin:0
+  3px;float:left; color:#000099;}
+.blue-page-skin a:hover{border:1px solid #a0a0a0; padding:2px 5px;}
+.blue-page-skin span{padding:2px 5px;float:left; margin:0 3px;}
+.blue-page-skin span.page-curr{background:#f0f0f0;border:1px solid #e0e0e0;}
+.blue-page-skin span.disabled{border:1px solid #f3f3f3; color:#ccc}
+.blue-page-skin .page-skip{float:left; padding:2px 5px;}
+.blue-page-skin .page-direct{width:30px;}
+
+/*蓝色*/
+.red-page-skin{padding:3px; color:#48b9ef}
+.red-page-skin a{border:1px solid #f0f0f0; padding:2px 5px; margin:0 3px;float:left; color:#48b9ef;}
+.red-page-skin a:hover{border:1px solid #ff5a00; padding:2px 5px;color:#ff5a00;}
+.red-page-skin span{padding:2px 5px;float:left; margin:0 3px;}
+.red-page-skin span.page-curr{background:#ff6c16;border:1px solid #ff5a00;color:#fff;}
+.red-page-skin span.disabled{border:1px solid #f3f3f3; color:#ccc}
+.red-page-skin .page-skip{float:left; padding:2px 5px;}
+.red-page-skin .page-direct{width:30px;}
+
+
+</style>
+  </head>
+  <body>
+<table>
+	<tr>
+    <td>
+      <h1>第一个翻页，只是单纯渲染</h1>
+    <div class="page-box J_PagerContainer1"> </div>
+    </td>
+	</tr>
+	<tr>
+    <td>
+      <h1>第二个翻页，通过样式控制不显示跳转的部分</h1>
+      <style>
+        .red-page-skin .page-skip{display:none;}
+      </style>
+    <div class="page-box J_PagerContainer2"> </div>
+    </td>
+	</tr>
+	<tr>
+    <td>
+      <h1>第3个翻页，异步接口</h1>
+      <div class="J_commentList">
+
+      </div>
+    <div class="page-box J_PagerContainer3"> </div>
+    <br>
+    <input class="J_gotoval" value="5" />
+    <button class="J_gototop">外部控制页面跳转</button>
+    <button class="J_destroy">销毁翻页</button>
+    </td>
+	</tr>
+</table>
+
+  <script type="text/javascript">
+KISSY.add("pageflip",function(S){
+  var S = KISSY, D = S.DOM, E = S.Event, $ = S.all;
+  var BeforPager = "beforPage",AfterPager = "afterPage";
+ 	function pager(container,config){
+		var defalut={
+      half : 4, //页码半径
+      total : 0, //总页数
+      current : 0, //当前的页码
+      skin : "blue" , //皮肤，默认有blue/red/black/gary
+      //model : "easy", //模式暂时没有配置，可以通过修改样式来减少显示
+      prefix : 2, //前缀
+      suffix : 0, //后缀
+      callback : function(toindex){ }
+		};
+    this.fixs = S.merge(defalut,config);			
+ 		this.box = $(container);	
+ 		this.init();
+ 	};
+ 	S.augment(pager,S.Event.Target,{
+ 		init: function(){
+      var self = this;
+      //调用页码
+ 			self.renderPager();
+ 			self.bind();
+ 		},
+    renderPager:function(toindex) {//输出页码
+      var self = this;
+      var html = '';
+      var current = parseInt(toindex)  || self.fixs.current;//当前页
+      var total = self.fixs.total;//总页数
+      var radius = self.fixs.half;//获取半径
+      var skin = self.fixs.skin + "-page-skin";//皮肤样式
+      var prefix = self.fixs.prefix;//前缀
+      var suffix = self.fixs.suffix;//后缀
+      var cb = self.fixs.callback;
+
+      self.fire(BeforPager,{index: current});
+
+      if (current < 0) {
+          return;
+      }
+      // 少于 2 页，不显示分页
+      if (total < 2) {
+          return;
+      }
+
+      //首页
+      
+      // 上一页
+      if (current > 1) {
+          html += '<a class="page-pre J_PageNoBtn" data-page-no="' +(current - 1)+ '" href="#">上一页</a>';
+      }
+      else{
+          html += '<span class="page-pre disabled J_PageNoBtn" data-page-no="' +(current - 1)+ '">上一页</span>';
+      }
+
+      // [1, current]
+      if (current < prefix + radius ) {
+          for (var i = 1; i <= current; ++i) {
+              if ( i == current) {
+                  html += '<span class="page-curr">' +i+ '</span>';
+              } else{
+                  html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
+              }
+          }
+      } else {
+          for (var i = 1; i <= prefix; ++i) {
+              html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+          }
+          html += '<span class="page-break">...</span>';
+          for (var i = current - 2; i <= current; ++i) {
+              if ( i == current) {
+                  html += '<span class="page-curr">' +i+ '</span>';
+              } else{
+                  html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+              }
+          }
+      }
+
+      // (current, current + radius]
+      for (var i = current + 1, len = Math.min(total, current+radius); i <= len; ++i) {
+          html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+      }
+
+      //(current + radius , totle)
+      if (current + radius < total) {
+          html += '<span class="page-break">...</span>';
+          for (var i = total - suffix +1 ; i <= total; ++i) {
+              html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
+          }
+
+      }
+
+
+      // 下一页
+      if (current < total) {
+          html += '<a class="page-next J_PageNoBtn" data-page-no="' +(current + 1)+ '" href="#">下一页</a>';
+      }
+      else{
+          html += '<span class="page-next J_PageNoBtn disabled" data-page-no="' +(current + 1)+ '">下一页</span>';
+      }
+
+      // form 跳转
+      if (total > 1) {
+          html += '<div class="page-skip">' +
+              '<em>共' +total+ '页&nbsp;到第</em>' +
+              '<input data-total="' +total+ '" data-original="' +current+ '" class="page-direct J_PageInputText" value="' +current+ '"/>' +
+              '<em>页</em>' +
+              '<button class="page-sub J_PageInputBtn"/>确定</button>' +
+              '</div>';
+      } 
+      self.box.addClass(skin).html(html)
+      if (cb){
+        cb(current)
+      }
+      self.fire(AfterPager,{index: current});
+    },
+    destory : function(){//销毁页码
+      var self = this;
+      self.box.detach()
+      self.box.removeClass(self.fixs.skin + "-page-skin").empty()
+    },
+    bind : function(){//绑定点击事件
+      var self = this,
+          pageLink = function(evt){
+            evt.preventDefault;
+            var target = evt.target,num;
+            //S.log(target.tagName)
+            if(target.tagName == "A"){
+              var num = $(target).attr("data-page-no");
+              self.page(num)
+            }
+            else if(target.tagName == "BUTTON"){
+              var num = self.box.all(".J_PageInputText").val();
+              if (num > self.fixs.total){
+                num = self.fixs.total;
+              }
+              else if(num < 1){
+                num = 1;
+              }
+              self.page(num)
+            }
+            //S.log(num+","+self.fixs.total)
+          },
+          pageKey = function(evt){
+            if (evt.keyCode == 13) {
+                var num = self.box.all(".J_PageInputText").val();
+                if (num > self.fixs.total){
+                  num = self.fixs.total;
+                }
+                else if(num < 1){
+                  num = 1;
+                }
+                self.page(num)
+            }
+
+          };
+      self.box.on("click",pageLink);
+      self.box.on("keypress",pageKey);
+    },
+    page : function(toindex){
+      //S.log(toindex)
+      var self = this;
+      self.renderPager(toindex)
+    }
+ 	})
+ 	return pager;
+},{
+  attach:false,
+  requires : ["sizzle"]
+});
+</script>
+
+  <script>
+    KISSY.use('pageflip',function(S,pageFlip){
+      //渲染第一个翻页
+      var pg1 = new pageFlip('.J_PagerContainer1',{
+        total : 100, //总页数
+        current : 10,
+        skin : "blue",
+        half : 3
+	    })
+      //渲染第二个翻页
+      var pg2 = new pageFlip('.J_PagerContainer2',{
+        total : 30, //总页数
+        current : 1,
+        skin : "red",
+        half : 4
+	    })
+
+
+      //第三个翻页
+      var pg3 = new pageFlip('.J_PagerContainer3',{
+        total : 100,
+        current : 1,
+        half : 3,
+        callback : function(toindex){
+          getitem(toindex)
+          S.log("成功加载了第"+toindex+"页de数据")
+        }
+	    })
+      pg3.on("beforPage",function(obj){
+        S.log("我是在翻页之前执行的，翻到第" + obj.index + "页")
+      })
+      pg3.on("afterPage",function(obj){
+        var index = obj.index;
+        S.log("我是在翻页之后执行的，翻到第" + obj.index + "页")
+      })
+
+      //销毁按钮
+      S.all(".J_destroy").on("click",function(){
+        pg3.destory();
+      })
+
+      //跳转按钮
+      S.all(".J_gototop").on("click",function(){
+        var ii = S.all(".J_gotoval").val();
+        pg3.page(ii)
+      })
+      //这里是请求接口
+      function getitem(index){
+        var cb_name = "callback" + S.guid(), 
+            API_url = "http://3c.taobao.com/json/commentlist.htm?spm=1020.3.20.1000&_input_charset=utf-8&spuid=126503488&cat=1512&pageSize=5&cp="+index+"&commentrate=&exprestion=&order=_gmtCreate&q=&callback="; 
+        var params = { 
+           callback : cb_name 
+        }; 
+        window[cb_name] = function(data){ 
+          var h = "";
+          S.each(data.comments,function(o,i){
+            h+="<p>"+o.content+"</p>"
+          })
+          S.all(".J_commentList").html(h);
+
+        } 
+        S.getScript(API_url + S.param(params)); 
+      }
+
+    });
+ </script>
+
+  </body>
+</html>
