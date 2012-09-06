@@ -12,8 +12,8 @@
   * code [pageflip.js](https://github.com/vmarket/review/blob/master/page/pageflip.js)
   * demo [scroll](http://fed.ued.taobao.net/u/yenn/pages.html)
 * 刘文炳
+  * code [pageflip.js](https://github.com/vmarket/review/blob/master/page/i.js)
+  * demo [page](http://fed.ued.taobao.net/u/lwb/exp/page/i.html)
 
 
 ###review 地址
-
-  [commit](https://github.com/vmarket/review/commit/e8773ce1c85a436623039b7e445528073390e3ee)
