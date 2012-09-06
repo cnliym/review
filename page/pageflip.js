@@ -2,20 +2,20 @@ KISSY.add("pageflip",function(S){
   var S = KISSY, D = S.DOM, E = S.Event, $ = S.all;
   var BeforPager = "beforPage",AfterPager = "afterPage";
   function pager(container,config){
-    var defalut={
-      half : 4, //页码半径
-      total : 0, //总页数
-      current : 0, //当前的页码
-      skin : "blue" , //皮肤，默认有blue/red/black/gary
-      //model : "easy", //模式暂时没有配置，可以通过修改样式来减少显示
-      prefix : 2, //前缀
-      suffix : 0, //后缀
-      callback : function(toindex){ }
-    };
-    this.fixs = S.merge(defalut,config);			
-    this.box = $(container);	
+    this.fixs = S.merge(pager.defalut, config);
+    this.box  = $(container);	
     this.init();
   };
+  pager.defalut = {
+    half     : 4, //页码半径
+    total    : 0, //总页数
+    current  : 0, //当前的页码
+    skin     : "blue" , //皮肤，默认有blue/red/black/gary
+    //model  : "easy", //模式暂时没有配置，可以通过修改样式来减少显示
+    prefix   : 2, //前缀
+    suffix   : 0, //后缀
+    callback : function(toindex){ }
+  } ;
   S.augment(pager,S.Event.Target,{
     init: function(){
       var self = this;
@@ -26,13 +26,14 @@ KISSY.add("pageflip",function(S){
     renderPager:function(toindex) {//输出页码
       var self = this;
       var html = '';
-      var current = parseInt(toindex)  || self.fixs.current;//当前页
-      var total = self.fixs.total;//总页数
-      var radius = self.fixs.half;//获取半径
-      var skin = self.fixs.skin + "-page-skin";//皮肤样式
-      var prefix = self.fixs.prefix;//前缀
-      var suffix = self.fixs.suffix;//后缀
-      var cb = self.fixs.callback;
+      var current = parseInt(toindex, 10)  || self.fixs.current;//当前页
+      var fixs   = self.fixs;
+      var total  = fixs.total;//总页数
+      var radius = fixs.half;//获取半径
+      var skin   = fixs.skin + "-page-skin";//皮肤样式
+      var prefix = fixs.prefix;//前缀
+      var suffix = fixs.suffix;//后缀
+      var cb     = fixs.callback;
 
       self.fire(BeforPager,{index: current});
 

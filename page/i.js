@@ -8,27 +8,27 @@ KISSY.add('page',function(S, D, E){
   var $ = S.all;
   function Page(iConter, iCfg){
     var cfg = {
-      current: 1, //当前页
-      count: 10, //总页数
-      size: 5, //显示页码数
-      style: "tbpage", //皮肤class
+      current : 1, //当前页
+      count   : 10, //总页数
+      size    : 5, //显示页码数
+      style   : "tbpage", //皮肤class
       ajax: {
-        enable: false,
-        boxId: "",
-        url: "",
-        dataType: 'jsonp',
-        scriptCharset: 'utf-8',
-        jsonp: 'callback'
+        enable        : false,
+        boxId         : "",
+        url           : "",
+        dataType      : 'jsonp',
+        scriptCharset : 'utf-8',
+        jsonp         : 'callback'
       }
-    }
-    var sCfg = S.merge(cfg,iCfg);
+    };
+    var sCfg = S.merge(cfg, iCfg);
     //判断配置参数
     if(this._cfgError(sCfg)){
       this._style(sCfg, cfg, iConter);
-      this._rePage(sCfg, iConter)
+      this._rePage(sCfg, iConter);
     }
   }
-  S.augment(Page,{
+  S.augment(Page, {
     init: function(sCfg, iConter){
       //this._pageCreat(sCfg, iConter);
     },
@@ -42,14 +42,15 @@ KISSY.add('page',function(S, D, E){
     },
     //数字转化
     _pageInt: function(num){
-      return parseInt(num);
+      return parseInt(num, 10);
     },
     //渲染pagination
     _pageCreat: function(sCfg, iConter){
       //取显示页码的一半
-      var mNum = this._pageInt(sCfg.size / 2); 
-      var first = last = 1; //last用来遍历显示页码
-      var cont = ""; //容器
+      var mNum  = this._pageInt(sCfg.size / 2);
+      var first = 1; //last用来遍历显示页码
+      var last  = 1;
+      var cont  = ""; //容器
       first = sCfg.current - mNum > 0 ? sCfg.current - mNum : 1; //设置显示的第一个页码数
       if (first + sCfg.size > sCfg.count) {
         last = sCfg.count + 1;
@@ -68,7 +69,7 @@ KISSY.add('page',function(S, D, E){
 
       //first = first <= 0 ? 1 : first;
       //渲染页码数
-      for (first; first < last; first++) {
+      for (; first < last; first++) {
         if (first == sCfg.current) {
           cont += '<span class="cur" data-page="' + first + '">' + first + '</span>';
         } else {
@@ -99,7 +100,7 @@ KISSY.add('page',function(S, D, E){
           sCfg.current = num;
           that._rePage(sCfg, iConter);//重新渲染pagination
         }
-      })
+      });
       //可用页码点击
       item.each(function(v,k){
         v.on("click", function(ev){
@@ -107,8 +108,8 @@ KISSY.add('page',function(S, D, E){
           sCfg.current = iPage;
           that._rePage(sCfg, iConter);//重新渲染pagination
           ev.halt();
-        })
-      })
+        });
+      });
     },
     //重新渲染
     _rePage: function(sCfg, iConter){
@@ -128,12 +129,12 @@ KISSY.add('page',function(S, D, E){
             that._pageCreat(sCfg, iConter);
           },
           error: function(){
-            console.log("接口数据错误");
+            S.log("接口数据错误");
           }
-        })
+        });
       }else{
         this._pageCreat(sCfg, iConter);
-      };
+      }
     },
     //获取页码首页
     _getFirst: function(sCfg){
@@ -182,6 +183,6 @@ KISSY.add('page',function(S, D, E){
         return true;				
       }
     }
-  })
+  });
   return Page;
-},{attach:false, requires:['dom','event'] })
+},{attach:false, requires:['dom','event'] });
