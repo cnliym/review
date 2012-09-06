@@ -18,4 +18,6 @@ markdown语法，markdown语法可以参考
 
 ## 代码集合
 
-- 第一期，scroll
+- 第一期, scroll: 爱逛街滚动动画
+- 第二期, page:  分页
+- 第三期, affix: 固定模块
