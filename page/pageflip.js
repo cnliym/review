@@ -1,114 +1,155 @@
-KISSY.add("pageflip",function(S){
-  var S = KISSY, D = S.DOM, E = S.Event, $ = S.all;
+KISSY.add("pageflip", function(S){
+  var D = S.DOM, E = S.Event, $ = S.all;
+  //¶¨ÒåÁ½¸öÊÂ¼þ£¬ÏÂÃæfireÊ±ÓÃ£¬·­Ò³Ç°ºÍ·­Ò³ºó
   var BeforPager = "beforPage",AfterPager = "afterPage";
-  function pager(container,config){
-    this.fixs = S.merge(pager.defalut, config);
-    this.box  = $(container);	
-    this.init();
-  };
-  pager.defalut = {
-    half     : 4, //é¡µç åŠå¾„
-    total    : 0, //æ€»é¡µæ•°
-    current  : 0, //å½“å‰çš„é¡µç 
-    skin     : "blue" , //çš®è‚¤ï¼Œé»˜è®¤æœ‰blue/red/black/gary
-    //model  : "easy", //æ¨¡å¼æš‚æ—¶æ²¡æœ‰é…ç½®ï¼Œå¯ä»¥é€šè¿‡ä¿®æ”¹æ ·å¼æ¥å‡å°‘æ˜¾ç¤º
-    prefix   : 2, //å‰ç¼€
-    suffix   : 0, //åŽç¼€
-    callback : function(toindex){ }
-  } ;
-  S.augment(pager,S.Event.Target,{
-    init: function(){
+
+ 	function Pager(container,config){
+    this.fixs = S.merge(Pager.defalut,config);			
+ 		this.box = $(container);	
+ 		this.init();
+ 	}
+  //°ÑÄ¬ÈÏÅäÖÃÄÃ³öÀ´£¬ÕâÑù²»ÓÃÃ¿´Î¶¼ÒªÈ¥äÖÈ¾¸ÃÒ³Ãæ
+	Pager.defalut={
+      half     : 4, //Ò³Âë°ë¾¶
+      total    : 0, //×ÜÒ³Êý
+      current  : 0, //µ±Ç°µÄÒ³Âë
+      skin     : "blue" , //Æ¤·ô£¬Ä¬ÈÏÓÐblue/red/black/gary
+      //model  : "easy", //Ä£Ê½ÔÝÊ±Ã»ÓÐÅäÖÃ£¬¿ÉÒÔÍ¨¹ýÐÞ¸ÄÑùÊ½À´¼õÉÙÏÔÊ¾
+      prefix   : 2, //Ç°×º
+      suffix   : 0, //ºó×º
+      callback : function(toindex){ }
+	};
+ 	S.augment(Pager,S.Event.Target,{
+ 		init: function(){
       var self = this;
-      //è°ƒç”¨é¡µç 
-      self.renderPager();
-      self.bind();
+      //µ÷ÓÃÒ³Âë
+ 			self.renderPager();
+ 			self._bindfn();
+ 		},
+    _bindfn : function(){//°ó¶¨µã»÷ÊÂ¼þ
+      var self = this,
+          pageLink = function(evt){
+            evt.preventDefault;
+            var target = evt.target,num;
+            //S.log(target.tagName)
+            if(target.tagName == "A"){
+              var num = $(target).attr("data-page-no");
+              self.pageTo(num)
+            }
+            else if(target.tagName == "BUTTON"){
+              var num = self.box.all(".J_PageInputText").val();
+              if (num > self.fixs.total){
+                num = self.fixs.total;
+              }
+              else if(num < 1){
+                num = 1;
+              }
+              self.pageTo(num)
+            }
+            //S.log(num+","+self.fixs.total)
+          },
+          pageKey = function(evt){
+            if (evt.keyCode == 13) {
+                var num = self.box.all(".J_PageInputText").val();
+                if (num > self.fixs.total){
+                  num = self.fixs.total;
+                }
+                else if(num < 1){
+                  num = 1;
+                }
+                self.pageTo(num)
+            }
+
+          };
+      self.box.on("click",pageLink);
+      self.box.on("keypress",pageKey);
     },
-    renderPager:function(toindex) {//è¾“å‡ºé¡µç 
-      var self = this;
-      var html = '';
-      var current = parseInt(toindex, 10)  || self.fixs.current;//å½“å‰é¡µ
-      var fixs   = self.fixs;
-      var total  = fixs.total;//æ€»é¡µæ•°
-      var radius = fixs.half;//èŽ·å–åŠå¾„
-      var skin   = fixs.skin + "-page-skin";//çš®è‚¤æ ·å¼
-      var prefix = fixs.prefix;//å‰ç¼€
-      var suffix = fixs.suffix;//åŽç¼€
-      var cb     = fixs.callback;
+    renderPager:function(toindex,totle) {//Êä³öÒ³Âë
+      var self     = this;
+      var html     = '';
+      var current  = parseInt(toindex, 10)  || self.fixs.current;//µ±Ç°Ò³
+      var total    = parseInt(totle, 10)  || self.fixs.total;//×ÜÒ³Êý
+      var radius   = self.fixs.half;//»ñÈ¡°ë¾¶
+      var skin     = self.fixs.skin + "-page-skin";//Æ¤·ôÑùÊ½
+      var prefix   = self.fixs.prefix;//Ç°×º
+      var suffix   = self.fixs.suffix;//ºó×º
+      var cb       = self.fixs.callback;
+      self.current = current;
+      self.totle   = total;
 
       self.fire(BeforPager,{index: current});
 
       if (current < 0) {
-        return;
+          return;
       }
-      // å°‘äºŽ 2 é¡µï¼Œä¸æ˜¾ç¤ºåˆ†é¡µ
+      // ÉÙÓÚ 2 Ò³£¬²»ÏÔÊ¾·ÖÒ³
       if (total < 2) {
-        return;
+          return;
       }
 
-      //é¦–é¡µ
-
-      // ä¸Šä¸€é¡µ
+      
+      // ÉÏÒ»Ò³
       if (current > 1) {
-        html += '<a class="page-pre J_PageNoBtn" data-page-no="' +(current - 1)+ '" href="#">ä¸Šä¸€é¡µ</a>';
+          html += '<a class="page-pre J_PageNoBtn" data-page-no="' +(current - 1)+ '" href="#">ÉÏÒ»Ò³</a>';
       }
       else{
-        html += '<span class="page-pre disabled J_PageNoBtn" data-page-no="' +(current - 1)+ '">ä¸Šä¸€é¡µ</span>';
+          html += '<span class="page-pre disabled J_PageNoBtn" data-page-no="' +(current - 1)+ '">ÉÏÒ»Ò³</span>';
       }
 
       // [1, current]
       if (current < prefix + radius ) {
-        for (var i = 1; i <= current; ++i) {
-          if ( i == current) {
-            html += '<span class="page-curr">' +i+ '</span>';
-          } else{
-            html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
+          for (var i = 1; i <= current; ++i) {
+              if ( i == current) {
+                  html += '<span class="page-curr">' +i+ '</span>';
+              } else{
+                  html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
+              }
           }
-        }
       } else {
-        for (var i = 1; i <= prefix; ++i) {
-          html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
-        }
-        html += '<span class="page-break">...</span>';
-        for (var i = current - 2; i <= current; ++i) {
-          if ( i == current) {
-            html += '<span class="page-curr">' +i+ '</span>';
-          } else{
-            html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+          for (var i = 1; i <= prefix; ++i) {
+              html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
           }
-        }
+          html += '<span class="page-break">...</span>';
+          for (var i = current - 2; i <= current; ++i) {
+              if ( i == current) {
+                  html += '<span class="page-curr">' +i+ '</span>';
+              } else{
+                  html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+              }
+          }
       }
 
       // (current, current + radius]
       for (var i = current + 1, len = Math.min(total, current+radius); i <= len; ++i) {
-        html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
+          html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="#">' +i+ '</a>';
       }
 
       //(current + radius , totle)
       if (current + radius < total) {
-        html += '<span class="page-break">...</span>';
-        for (var i = total - suffix +1 ; i <= total; ++i) {
-          html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
-        }
+          html += '<span class="page-break">...</span>';
+          for (var i = total - suffix +1 ; i <= total; ++i) {
+              html +=  '<a class="J_PageNoBtn" data-page-no="' + i + '" href="">' +i+ '</a>';
+          }
 
       }
 
 
-      // ä¸‹ä¸€é¡µ
+      // ÏÂÒ»Ò³
       if (current < total) {
-        html += '<a class="page-next J_PageNoBtn" data-page-no="' +(current + 1)+ '" href="#">ä¸‹ä¸€é¡µ</a>';
+          html += '<a class="page-next J_PageNoBtn" data-page-no="' +(current + 1)+ '" href="#">ÏÂÒ»Ò³</a>';
       }
       else{
-        html += '<span class="page-next J_PageNoBtn disabled" data-page-no="' +(current + 1)+ '">ä¸‹ä¸€é¡µ</span>';
+          html += '<span class="page-next J_PageNoBtn disabled" data-page-no="' +(current + 1)+ '">ÏÂÒ»Ò³</span>';
       }
 
-      // form è·³è½¬
+      // form Ìø×ª
       if (total > 1) {
-        html += '<div class="page-skip">' +
-                '<em>å…±' +total+ 'é¡µ&nbsp;åˆ°ç¬¬</em>' +
-                '<input data-total="' +total+ '" data-original="' +current+ '" class="page-direct J_PageInputText" value="' +current+ '"/>' +
-                '<em>é¡µ</em>' +
-                '<button class="page-sub J_PageInputBtn"/>ç¡®å®š</button>' +
-                '</div>';
+          html += '<div class="page-skip">' +
+              '<em>¹²' +total+ 'Ò³&nbsp;µ½µÚ</em>' +
+              '<input data-total="' +total+ '" data-original="' +current+ '" class="page-direct J_PageInputText" value="' +current+ '"/>' +
+              '<em>Ò³</em>' +
+              '<button class="page-sub J_PageInputBtn"/>È·¶¨</button>' +
+              '</div>';
       } 
       self.box.addClass(skin).html(html)
       if (cb){
@@ -116,56 +157,48 @@ KISSY.add("pageflip",function(S){
       }
       self.fire(AfterPager,{index: current});
     },
-    destory : function(){//é”€æ¯é¡µç 
+    destory : function(){//Ïú»ÙÒ³Âë
       var self = this;
       self.box.detach()
       self.box.removeClass(self.fixs.skin + "-page-skin").empty()
     },
-    bind : function(){//ç»‘å®šç‚¹å‡»äº‹ä»¶
-      var self = this,
-      pageLink = function(evt){
-        evt.preventDefault;
-        var target = evt.target,num;
-        //S.log(target.tagName)
-        if(target.tagName == "A"){
-          var num = $(target).attr("data-page-no");
-          self.page(num)
-        }
-        else if(target.tagName == "BUTTON"){
-          var num = self.box.all(".J_PageInputText").val();
-          if (num > self.fixs.total){
-            num = self.fixs.total;
-          }
-          else if(num < 1){
-            num = 1;
-          }
-          self.page(num)
-        }
-        //S.log(num+","+self.fixs.total)
-      },
-      pageKey = function(evt){
-        if (evt.keyCode == 13) {
-          var num = self.box.all(".J_PageInputText").val();
-          if (num > self.fixs.total){
-            num = self.fixs.total;
-          }
-          else if(num < 1){
-            num = 1;
-          }
-          self.page(num)
-        }
-
-      };
-      self.box.on("click",pageLink);
-      self.box.on("keypress",pageKey);
-    },
-    page : function(toindex){
+    pageTo : function(toindex){
       //S.log(toindex)
       var self = this;
       self.renderPager(toindex)
+    },
+    pageNext : function(){
+      var self = this;
+      //S.log(self)
+      var p_n = self.current +1;
+      var p_t = self.totle;
+      if(p_t < p_n){
+        S.log("ÒÑ¾­×îºóÒ»Ò³ÁË")
+        p_n = p_t
+      }
+      self.renderPager(p_n);
+    },
+    pagePrev : function(){
+      var self = this;
+      var p_n = self.current -1;
+      if( 1 > p_n){
+        S.log("ÒÑ¾­µÚÒ»Ò³ÁË")
+        p_n = 1
+      }
+      self.renderPager(p_n);
+    },
+    getTotle : function(){
+      var self = this;
+      var p_t = self.totle;
+      return p_t;
+    },
+    getIndex : function(){
+      var self = this;
+      var p_n = self.current;
+      return p_n;
     }
-  })
-  return pager;
+ 	})
+ 	return Pager;
 },{
   attach:false,
   requires : ["sizzle"]
