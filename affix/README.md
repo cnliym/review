@@ -1,4 +1,4 @@
-##第三期代码review
+﻿##第三期代码review
 
 ###题目描述
 
@@ -17,9 +17,9 @@
 
 ###实现者
 
-* xxx
-  * code [scroll.js](https://github.com/vmarket/review/blob/master/scroll/scroll.js)
-  * demo [scroll](http://fed.ued.taobao.net/u/feiyan/scroll.html)
+* 李照
+  * code [scrollFollow.js](https://github.com/vmarket/review/blob/master/scroll/scrollFollow.js)
+  * demo [scrollFollow](http://fed.ued.taobao.net/u/zhouyun/demos/ScrollFollow.html)
 * xxx
   * code [rotation.js](https://github.com/vmarket/review/blob/master/scroll/rotation.js)
   * demo [rotation](http://fed.ued.taobao.net/u/zhouxiaohuan/Assignments/evenroll/Scroll.html)
