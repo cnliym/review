@@ -18,7 +18,7 @@
 ###实现者
 
 * 李照
-  * code [scrollFollow.js](https://github.com/vmarket/review/blob/master/scroll/scrollFollow.js)
+  * code [scrollFollow.js](https://github.com/vmarket/review/tree/master/affix/scrollFollow.js)
   * demo [scrollFollow](http://fed.ued.taobao.net/u/zhouyun/demos/ScrollFollow.html)
 * xxx
   * code [rotation.js](https://github.com/vmarket/review/blob/master/scroll/rotation.js)
