@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+        <link rel="stylesheet" href="http://a.tbcdn.cn/??p/global/1.0/global-min.css,tbsp/tbsp.css" />
+        <script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js,/p/market/r/120507/market-min.js?t=2012071220100214.js"></script>
+        
+
+        <style>
+            #page{ width:100%;}
+            .demoBox{ padding: 10px;}
+            .links{ clear:both;}
+            .menuBox{  border:1px solid #000; background: #FFF; float: left;}
+            .menuBox ul  .menuItem{ height:20px; line-height: 20px; color:#666; padding:0 5px; }
+            .menuBox ul  dt.menuItem{ font-weight: bold;}
+            .menuBox ul .menuList{ float: left; width:200px;}
+            .menuBox ul  .menuItem_hover{ background: #ddd;}
+            .menuBox ul  .menuItem_active{ background: #eee;}
+            .menuBox ul  .menuItem a{ color: #666;}
+            .J_cancelPop,.J_restorePop{ display: inline-block; height:22px; line-height: 22px; width:100px; margin: 10px; background:yellow; text-align: center; border:1px solid #000; color: #333;}
+        </style>
+    </head>
+    <body>
+        <div id="page">
+            <div id="content" class="clearfix">
+                <div class="clearfix demoBox">
+                    <h2>五项一列,多列不展开,异步获取数据,开启缓存,最大展开层数3</h2>
+                    <div class="menuBox J_menuBox" data-level="0">
+                        <ul class="clearfix">
+                            <li class="menuList J_menuList">
+                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50005800"><a href="#">22222</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix demoBox">
+                    <h2>三项一列,多列展开,同步获取数据,最大展开层数3</h2>
+                    <div class="menuBox J_menuBox1" data-level="0">
+                        <ul class="clearfix">
+                            <li class="menuList J_menuList">
+                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50006100"><a href="#">11111</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006200"><a href="#">22222</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">33333</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="clearfix demoBox">
+                    <h2>所有项放一列,异步获取数据,不缓存,最大展开层数5</h2>
+                    <div class="menuBox J_menuBox2" data-level="0">
+                        <ul class="clearfix">
+                            <li class="menuList J_menuList">
+                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">22222</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
+                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="links" >
+                        <a href="#" class="J_cancelPop"> 取消弹出效果</a><a href="#" class="J_restorePop"> 恢复弹出效果</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script type="html/template" id="J_menu-tpl1">
+        <div class="menuBox {{klass}}" data-level="{{level}}" data-parentIndex="{{index}}" style="position: absolute; top:{{top}}px; left:{{left}}px;z-index:{{zIndex}};" data-preleave="">
+            <ul class="clearfix">   
+
+                {{#each menus as value i}}
+                {{#if (maxRows&&i%maxRows==0)||(!maxRows&&i==0)}}
+                <li class="menuList J_menuList">
+                {{/if}}
+                    {{#if value.isTitle}}
+                    <dt class="menuItem" >{{value.title}}</dt>
+                    {{#else}}
+                    <dd class="menuItem J_hoverList" data-index="{{i}}" data-isLeaf="{{value.isLeaf}}" data-key="catid" data-value="{{value.catid}}"><a href="{{value.link}}">{{value.title}}</a></dd>
+                    {{/if}}
+                {{#if (maxRows&&i%maxRows==maxRows-1)||(!maxRows&&i==menus.length-1)}}
+                </li>
+                {{/if}}
+                {{/each}}   
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+
+    //同步数据源
+        var ZmenuData={
+            50005700:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true },
+                { "title":"ddddd", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000" ,"isTitle":false},
+                { "title":"eeeee", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100","isTitle":true },
+                { "title":"fffff", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200" ,"isTitle":false},
+                { "title":"ggggg", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300" ,"isTitle":false},
+                { "title":"hhhhh", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700" ,"isTitle":false},
+                { "title":"iiiii", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"jjjjj", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900" ,"isTitle":true},
+                { "title":"kkkkk", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000","isTitle":true } ,
+                { "title":"mmmmm", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100" ,"isTitle":false},
+                { "title":"nnnnn", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200","isTitle":true } ,
+                { "title":"ooooo", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300","isTitle":true },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50005800:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true },
+                { "title":"ddddd", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000" ,"isTitle":false},
+                { "title":"mmmmm", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100" ,"isTitle":false},
+                { "title":"nnnnn", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200","isTitle":true } ,
+                { "title":"ooooo", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300","isTitle":true },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50005900:{ "success":true,"menus":[
+                { "title":"ggggg", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300" ,"isTitle":false},
+                { "title":"hhhhh", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700" ,"isTitle":false},
+                { "title":"iiiii", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"jjjjj", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900" ,"isTitle":true},
+                { "title":"kkkkk", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000","isTitle":true } ,
+                { "title":"mmmmm", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100" ,"isTitle":false},
+                { "title":"nnnnn", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200","isTitle":true } ,
+                { "title":"ooooo", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300","isTitle":true },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50006000:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true },
+                { "title":"ddddd", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000" ,"isTitle":false},
+                { "title":"eeeee", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100","isTitle":true },
+                { "title":"fffff", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200" ,"isTitle":false},
+                { "title":"ggggg", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300" ,"isTitle":false},
+                { "title":"hhhhh", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700" ,"isTitle":false},
+                { "title":"iiiii", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50006100:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true },
+                { "title":"ddddd", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000" ,"isTitle":false},
+                { "title":"jjjjj", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900" ,"isTitle":true},
+                { "title":"kkkkk", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000","isTitle":true } ,
+                { "title":"mmmmm", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006100" ,"isTitle":false},
+                { "title":"nnnnn", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200","isTitle":true } ,
+                { "title":"ooooo", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300","isTitle":true },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50006200:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true },
+                { "title":"ddddd", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006000" ,"isTitle":false},
+                { "title":"nnnnn", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006200","isTitle":true } ,
+                { "title":"ooooo", "link":"http://taobao.com", "isLeaf":"true", "catid":"50006300","isTitle":true },
+                { "title":"ppppp", "link":"http://taobao.com", "isLeaf":"false", "catid":"50006400" ,"isTitle":false}
+                ] },
+            50006300:{ "success":true,"menus":[
+                { "title":"aaaaa", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005700","isTitle":true },
+                { "title":"bbbbb", "link":"http://taobao.com", "isLeaf":"false", "catid":"50005800","isTitle":false },
+                { "title":"ccccc", "link":"http://taobao.com", "isLeaf":"true", "catid":"50005900","isTitle":true }
+                ] }
+        }
+    </script>
+    <script type="text/javascript" src="zmenu.js"></script>
+    <script type="text/javascript">
+    KISSY.Config.debug=true;
+        (function(S,$,D,E) {
+
+            S.add('index',function(S,Zmenu){
+                function Index(){
+                    if (!(this instanceof Index)) {
+                        return new Index();
+                    };
+                    this.init();
+                }
+                S.augment(Index,{
+                    init:function(){
+                        var self = this;
+                        var zmenu1=new Zmenu("J_menuBox",'#J_menu-tpl1',{
+                            cache:true,
+                            mouseinDealy:300,
+                            mouseoutDealy:200,
+                            popupPosition:{
+                                top:-10,
+                                left:-20
+                            },
+                            debug:false,
+                            zIndex:1000,
+                            maxRows:5,
+                            onlyOneColOpen:true,
+                            dataSource:'http://market/test.php'
+                        });
+                        zmenu1.on("afterPop",function(ev){
+                            S.log(ev);
+                        });
+
+
+                        new Zmenu("J_menuBox1",'#J_menu-tpl1',{
+                            mouseinDealy:0,
+                            mouseoutDealy:0,
+                            popupPosition:{
+                                top:-10,
+                                left:-20
+                            },
+                            debug:false,
+                            zIndex:1000,
+                            maxRows:3,
+                            onlyOneColOpen:false,
+                            dataSource:ZmenuData
+                        });
+                        var zmenu3=new Zmenu("J_menuBox2",'#J_menu-tpl1',{
+                            cache:false,
+                            mouseinDealy:300,
+                            mouseoutDealy:200,
+                            popupPosition:{
+                                top:10,
+                                left:20
+                            },
+                            zIndex:2000,
+                            dataSource:'http://market/test.php',
+                            maxLevel:5
+                        });
+
+                        $(".J_cancelPop").on("click",function(ev){
+                            zmenu3.on("beforeGetData",function(ev){
+                                return false;//返回false,阻止后面的代码执行.
+                            });
+                            ev.halt();
+                        });
+                        $(".J_restorePop").on("click",function(ev){
+                            zmenu3.detach("beforeGetData");
+                            ev.halt();
+                        })
+
+                    }
+                })
+            
+                return Index;
+            },{attach:false,requires:['zmenu']});
+
+
+            S.ready(function(S){
+                S.use("index",function(S,Index){
+                    new Index();
+                })
+            })
+
+        }(KISSY,KISSY.all,KISSY.DOM,KISSY.Event))
+    </script>
+         
+    </body>
+</html>
