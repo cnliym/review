@@ -6,7 +6,7 @@
 * 支持输入时校验和表单提交前校验
 * 校验出错时，在相应位置提示错误信息
 * 支持required、maxLength、minLength、maxValue、minValue、number、email、url、mask（正则）等以及自定义custom和异步ajax形式
-* 截图：![img](http://img04.taobaocdn.com/tps/i4/T1q0TTXjhmXXaSjvIu-638-535.jpg)
+* ![img](http://img04.taobaocdn.com/tps/i4/T1q0TTXjhmXXaSjvIu-638-535.jpg)
 
 校验规则类似：
 ```
@@ -62,7 +62,7 @@
 
 ###review 地址
 
-[demo点我](xxx)
+demo1点我
 
-[demo2点我](xxx)
+demo2点我
 
