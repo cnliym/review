@@ -7,8 +7,8 @@
 第一次clone代码以后，在当前目录中执行操作
 
 ```
-git --config user.name '翰文' //自己花名
-git --config user.email 'hanwen.sah@taobao.com' //自己花名
+git config user.name '翰文' //自己花名
+git config user.email 'hanwen.sah@taobao.com' //自己花名
 ```
 
 代码提交需要注意，每次review的代码放在一个文件中，比如第一次，文件夹为scroll，并
