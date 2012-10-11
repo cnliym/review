@@ -3,8 +3,9 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=gbk">
+
         <link rel="stylesheet" href="http://a.tbcdn.cn/??p/global/1.0/global-min.css,tbsp/tbsp.css" />
-        <script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js,/p/market/r/120507/market-min.js?t=2012071220100214.js"></script>
+        <script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js,/p/market/r/120507/market-min.js?t=20121010.js"></script>
         
 
         <style>
@@ -29,10 +30,12 @@
                     <div class="menuBox J_menuBox" data-level="0">
                         <ul class="clearfix">
                             <li class="menuList J_menuList">
-                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50005800"><a href="#">22222</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                <dl>   
+                                    <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50005800"><a href="#">22222</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                </dl>
                             </li>
                         </ul>
                     </div>
@@ -42,10 +45,12 @@
                     <div class="menuBox J_menuBox1" data-level="0">
                         <ul class="clearfix">
                             <li class="menuList J_menuList">
-                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50006100"><a href="#">11111</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006200"><a href="#">22222</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">33333</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                <dl>                
+                                    <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50006100"><a href="#">11111</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006200"><a href="#">22222</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">33333</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                </dl>
                             </li>
                         </ul>
                     </div>
@@ -55,10 +60,12 @@
                     <div class="menuBox J_menuBox2" data-level="0">
                         <ul class="clearfix">
                             <li class="menuList J_menuList">
-                                <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">22222</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
-                                <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                <dl>
+                                    <dd class="menuItem J_hoverList" data-index="0" data-isLeaf="false" data-key="catid" data-value="50005700"><a href="#">11111</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="1" data-isLeaf="false" data-key="catid" data-value="50006300"><a href="#">22222</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="2" data-isLeaf="false" data-key="catid" data-value="50005900"><a href="#">33333</a></dd>
+                                    <dd class="menuItem J_hoverList" data-index="3" data-isLeaf="false" data-key="catid" data-value="50006000"><a href="#">44444</a></dd>
+                                </dl>
                             </li>
                         </ul>
                     </div>
@@ -76,7 +83,7 @@
 
                 {{#each menus as value i}}
                 {{#if (maxRows&&i%maxRows==0)||(!maxRows&&i==0)}}
-                <li class="menuList J_menuList">
+                <li class="menuList J_menuList"><dl>
                 {{/if}}
                     {{#if value.isTitle}}
                     <dt class="menuItem" >{{value.title}}</dt>
@@ -84,7 +91,7 @@
                     <dd class="menuItem J_hoverList" data-index="{{i}}" data-isLeaf="{{value.isLeaf}}" data-key="catid" data-value="{{value.catid}}"><a href="{{value.link}}">{{value.title}}</a></dd>
                     {{/if}}
                 {{#if (maxRows&&i%maxRows==maxRows-1)||(!maxRows&&i==menus.length-1)}}
-                </li>
+                </dl></li>
                 {{/if}}
                 {{/each}}   
             </ul>
@@ -199,8 +206,7 @@
                             debug:false,
                             zIndex:1000,
                             maxRows:5,
-                            onlyOneColOpen:true,
-                            dataSource:'http://market/test.php'
+                            onlyOneColOpen:true
                         });
                         zmenu1.on("afterPop",function(ev){
                             S.log(ev);
@@ -229,7 +235,7 @@
                                 left:20
                             },
                             zIndex:2000,
-                            dataSource:'http://market/test.php',
+                            // dataSource:'http://market/test.php',
                             maxLevel:5
                         });
 
