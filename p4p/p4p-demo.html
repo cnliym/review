@@ -1,0 +1,191 @@
+
+<!doctype html>
+
+<html>
+
+<head>
+
+<meta charset="gbk" />
+
+<title>p4p demo</title>
+
+<script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js"></script>
+<script type="text/javascript" src="p4p.js"></script>
+</head>
+
+<body>
+
+<style>
+
+img{border:none;}
+
+.items{overflow:hidden;zoom:1;}
+
+.items li{float:left;list-style:none;}
+
+</style>
+
+<script type="text/html" id="J_p4pItemTmpl">
+
+ <li>
+
+       <div class="img-wrap s190x340">
+
+            <a target="_blank" href="{{eurl}}" >
+
+                <img class="lazy" alt="{{itemTitle}}" src="{{pictureUrl}}" />
+
+            </a>
+
+            <div class="info J_Info">
+
+                <div class="desc">
+
+                    <a target="_blank" href="{{eurl}}" title="{{itemTitle}}">{{itemTitle}}</a>
+
+                </div>
+
+                <div class="price">
+
+                    <strong><% print((originalPrice / 100).toFixed(2)); %></strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+  </li>
+
+</script>
+
+
+
+<h1>Block 1</h1>
+
+<ul class="items" id="J_p4pItems"></ul>
+
+<hr />
+
+<h1>Block 2</h1>
+
+<ul class="items" id="J_p4pItems2"></ul>
+
+<hr />
+
+<h1>Block 3</h1>
+
+<ul class="items" id="J_p4pItems3"></ul>
+
+
+
+
+
+<script>
+KISSY.use("market/p4p",function(S,p4p){
+	p4p.getItems([{
+
+    activity_id: 3010,
+
+    blocks: [
+
+        {
+
+            id: "-1",
+
+            pid: '419343_1007',
+
+            count: 11,
+
+            tmpl: KISSY.get('#J_p4pItemTmpl').innerHTML,
+
+            resultContainer: '#J_p4pItems',
+
+            cb: function(items) {
+
+                // window.console && console.log &&
+
+                //     console.log(items);
+					alert(1)
+            }
+
+        },
+
+        {
+
+            id: -1,
+
+            pid: '420999_1007',
+
+            count: 2,
+
+            tmpl: KISSY.get('#J_p4pItemTmpl').innerHTML,
+
+            resultContainer: KISSY.get('#J_p4pItems2'),
+
+            cb: function(items) {
+
+                // window.console && console.log &&
+
+                //     console.log(items);
+
+            }
+
+        }
+
+    ],
+
+    apiPrefix: '',
+
+    charset: 'utf-8'
+
+},{
+
+    activity_id: 3010,
+
+    blocks: [
+
+        {
+
+            id: 36,
+
+            pid: '419343_1007',
+
+            count: 6,
+
+            tmpl: KISSY.get('#J_p4pItemTmpl').innerHTML,
+
+            resultContainer: '#J_p4pItems3'
+
+        }
+
+    ],
+
+    charset: 'utf-8'
+
+}], false);
+
+
+/**
+
+ * p4p.getItems(config, isdev)
+
+ *
+
+ * @param config {Object}
+
+ * @param isdev {Boolean} 是否打印 log
+
+ */
+
+
+});
+
+
+
+</script>
+
+</body>
+
+</html>
+
