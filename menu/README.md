@@ -7,22 +7,24 @@
 * 截图1：![img](http://img04.taobaocdn.com/tps/i4/T159HFXfJsXXcsb_w5-555-315.jpg)
 * 截图2：![img](http://img01.taobaocdn.com/tps/i1/T1JV2PXXlfXXcTnGMl-497-117.jpg)
 * 注意：只要求实现三级，并且尽量从简，例如不需要分组名（分组名为上图中的红框部分）
-* 参考数据结构：
-{
-  success:1,
-  menus:[
+
+参考数据结构：
+
     {
-      title:"海洋生物类",
-      link:"http://taobao.com"
-      isLeaf:"true"
-    },
-    {
-      title:"蛋白质/氨基酸",
-      link:"http://taobao.com"
-      isLeaf:"false"
+      success:1,
+      menus:[
+        {
+          title:"海洋生物类",
+          link:"http://taobao.com"
+          isLeaf:"true"
+        },
+        {
+          title:"蛋白质/氨基酸",
+          link:"http://taobao.com"
+          isLeaf:"false"
+        }
+      ]
     }
-  ]
-}
 
 ###实现者
 周赟
@@ -30,3 +32,4 @@
 ###review 地址
 
 [demo点我](http://fed.ued.taobao.net/u/zhouyun/demos/zmenu/zmenu.html)
+
