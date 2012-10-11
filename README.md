@@ -23,3 +23,11 @@ markdown语法，markdown语法可以参考
 - 第三期, affix: 固定模块
 - 第四期, menu: 多级异步菜单
 
+##提交
+
+```
+cd path/to/rewiew
+git add .
+git commit -m 'msg'
+git push
+```

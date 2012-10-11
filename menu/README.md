@@ -33,3 +33,5 @@
 
 [demo点我](http://fed.ued.taobao.net/u/zhouyun/demos/zmenu/zmenu.html)
 
+[demo2点我](http://fed.ued.taobao.net/u/shaoxiang/love_menu/demo.html)
+
