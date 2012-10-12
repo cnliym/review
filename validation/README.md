@@ -6,7 +6,10 @@
 * 支持输入时校验和表单提交前校验
 * 校验出错时，在相应位置提示错误信息
 * 支持required、maxLength、minLength、maxValue、minValue、number、email、url、mask（正则）等以及自定义custom和异步ajax形式
-* ![img](http://img04.taobaocdn.com/tps/i4/T1q0TTXjhmXXaSjvIu-638-535.jpg)
+* 功能不必太强大，满足常见需求即可
+* 主要考察点是代码的可读性，以及可拓展性
+
+![img](http://img04.taobaocdn.com/tps/i4/T1q0TTXjhmXXaSjvIu-638-535.jpg)
 
 校验规则类似：
 ```
