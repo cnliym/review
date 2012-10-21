@@ -13,7 +13,7 @@ KISSY.add('myValidation',function(S){
         //提交验证
         submitValidate:true,
         //需要验证的元素的id的前缀
-        prefix:'fuck'
+        prefix:'myAuth'
       };
 
   /**
@@ -85,7 +85,7 @@ KISSY.add('myValidation',function(S){
       this.bindEvent();
     },
 
-    //遍历所有表单验证元素，并实例化//{{{
+    //遍历所有表单验证元素，并实例化
     renderNodes:function(){
       var self = this;
       self.validNodes.each(function(v,k){
@@ -96,17 +96,17 @@ KISSY.add('myValidation',function(S){
           self.validAllArr.push(new ValidItem(v,oRule,self.cfg));
         }
       });
-    },//}}}
+    },
     /**
      * 验证整个表单 返回成功失败
      * return {Booleen}
      */
     checkValid:function(){
-      var self = this;
-      var len = self.validAllArr.length;
-      var i = 0;
-      var hasAsync = false;
-      var asyncNodes = [];
+      var self = this,
+          len = self.validAllArr.length,
+          i = 0,
+          hasAsync = false,
+          asyncNodes = [];
       //遍历所有验证节点，进行验证
       S.each(self.validAllArr,function(item){
         item.dealNodeRule();
@@ -136,10 +136,6 @@ KISSY.add('myValidation',function(S){
       }
     }
   });
-
-
-
-
 
   /**
    * ValidItem
@@ -185,7 +181,7 @@ KISSY.add('myValidation',function(S){
       this.renderHtml();
       this.bindEvent();
     },
-    //渲染html：写入id，插入提醒信息的html{{{
+    //渲染html：写入id，插入提醒信息的html
     renderHtml:function(){
       var self = this;
       self.msgNode = S.one(self.msgHtml);
@@ -195,14 +191,14 @@ KISSY.add('myValidation',function(S){
       if(!self.node.attr('id')){
         self.node.attr('id', self.cfg.prefix + S.guid());
       }
-    },//}}}
-    //展示或者隐藏验证信息//{{{
+    },
+    //展示或者隐藏验证信息
     showHideMsg:function(){
-      var self = this;
-      var validState = self.get('validState');
-      var msgNode = self.msgNode;
-      var msg = validState.msg;
-      var validPass = validState.validPass;
+      var self = this,
+          validState = self.get('validState'),
+          msgNode = self.msgNode,
+          msg = validState.msg,
+          validPass = validState.validPass;
 
       //验证通过，隐藏
       if(validPass){
@@ -213,7 +209,7 @@ KISSY.add('myValidation',function(S){
         msgNode.one('.label').text(msg);
         msgNode.show();
       }
-    },//}}}
+    },
     //处理需要验证的节点的规则 ,返回自身
     dealNodeRule:function(){
       var self = this;
@@ -324,8 +320,8 @@ KISSY.add('myValidation',function(S){
         if(oRule['async']){
           validPass = false;
           //self.isAsync = true;
-          var asyncRuleObj = oRule['async'];
-          var data = {};
+          var asyncRuleObj = oRule['async'],
+              data = {};
           data[asyncRuleObj.dataName] = val;
           msg = 'loading';
           self.set('validState',{msg:msg,validPass:validPass});
@@ -354,9 +350,9 @@ KISSY.add('myValidation',function(S){
     msgHtml:'<div class="valid-default" style="display:none;"><p class="estate"><span class="label"></span></p></div>',
     //事件绑定
     bindEvent:function(){
-      var self = this;
-      var node = self.node;
-      var validType = self.cfg.validType;
+      var self = this,
+          node = self.node,
+          validType = self.cfg.validType;
       //发生valuechange的时候，可能已经不通过验证，要改变self.isValChanged
       E.on(node,'valuechange',function(e){
         self.isValChanged = true;
