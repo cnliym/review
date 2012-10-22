@@ -68,16 +68,17 @@ KISSY.add('myValidation',function(S){
     self.form = (form instanceof S.NodeList) ? form : S.one(form);
     self.validNodes = self.form.all('[data-valid]');
     self.cfg = S.merge(defaultCfg,cfg);
+    //表单验证成功或失败
     self.validAllPass = false;
+    //所有需要验证表单元素的实例的数组
     self.validAllArr = [];
     self.init();
   }
 
-  //继承于KISSY.Base
+  //继承Component
   S.extend(myValidation, Component);
 
   myValidation.ATTRS={
-  
   };
 
   S.augment(myValidation,{
@@ -160,15 +161,16 @@ KISSY.add('myValidation',function(S){
     //self.isAsync = false;
     self.oRule = oRule;
     //计时器
-    self.timer = false;
+    //self.timer = false;
     self.cfg = cfg;
     self.init();
   }
 
-  //继承于KISSY.Base
+  //继承Component
   S.extend(ValidItem, Component);
 
   ValidItem.ATTRS={
+    //验证状态
     validState:{
       value:{
         msg:'',
