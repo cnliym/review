@@ -1,3 +1,9 @@
+/**
+ * Created by hanwen.sah@taobao.com.
+ * Date: 2012-10-22
+ * Time: 16:18
+ * Desc: 全部来自kissy的rules，这里还没有真正完善
+ */
 KISSY.add('valid/rules', function(){
 
   //自定义函数
