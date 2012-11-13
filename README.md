@@ -22,6 +22,8 @@ markdown语法，markdown语法可以参考
 - 第二期, page:  分页
 - 第三期, affix: 固定模块
 - 第四期, menu: 多级异步菜单
+- 第五期, validation: 表单校验
+- 第六期, base: 基类
 
 ##提交
 
