@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IO代理</title>
+    <meta charset="gbk" />
+    <script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js"></script>
+    <script type="text/javascript" src="iofactory.js"></script>
+    <script type="text/javascript" src="ioproxy.js"></script>
+    <script type="text/javascript" src="ioqueue.js"></script>
+    <script type="text/javascript" src="iostack.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    KISSY.use('market/iofactory', function (S, IOFactory) {
+        /*通过IO工厂创建IO队列代理*/
+        var ioQueue = IOFactory('queue');
+        /*通过IO工厂创建IO栈代理*/
+        var ioStack = IOFactory('stack');
+
+        for (var i = 0; i < 10; i++) {
+
+            (function (a) {
+                ioQueue.jsonp("http://tui.taobao.com/api/item?p=u&csk=women_category&from=women_category&count=12&f=jp", function (data) {
+                    console.log("ioQueue:post_"+a);
+                });
+            })(i);
+
+            (function (a) {
+                ioStack.getJSON("api.php", function (data) {
+                    console.log("ioStack:getJSON_"+a);
+                });
+            })(i);
+        }
+
+    });
+</script>
+</body>
+</html>

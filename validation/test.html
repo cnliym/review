@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="gbk" />
+<title>Sample page</title>
+<link rel="stylesheet" href="http://a.tbcdn.cn/??tbsp/tbsp.css" />
+<script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js,p/global/1.0/global-min.js,p/market/r/120507/market-min.js"></script>
+<script src="validation.js"></script>
+</head>
+<body style="height:5000px;">
+<form id="myForm">
+	<input id="username">
+</form>
+<script>
+KISSY.use('validation', function(S, V){
+	var v = new V('#myForm', {
+		"username":{ //username位表单项ID
+			"required":{
+				"value":true,
+				"message":"用户名不能为空"
+			}
+		}
+	});
+	v.addRule("username",{"email":{"value":true,"message":"email格式不对"}});
+	
+	v.removeRule("username", "required");
+})
+</script>
+</body>
+</html>
