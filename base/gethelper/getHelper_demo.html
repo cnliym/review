@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>getHelper DEMO</title>
+	<script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.2.0/kissy-min.js"></script>
+	<script type="text/javascript" src="getHelper.js"></script>
+	<script type="text/javascript">
+		KISSY.Config.debug = true;
+	</script>
+</head>
+<body>
+
+<script type="text/javascript">
+	KISSY.use("market/getHelper", function (S, GetHelper) {
+		//自定义请求格式
+		GetHelper.add("comment", {
+			API_PREFIX : "http://dog.taobao.com/CommentList.do",
+			MAP_PARA : '{"p":"@page","ps":"@pageSize","spuid":"@id","order":"@order"}',
+			MAP_RESULT : '{"@result":"resultText"}'
+		});
+
+//			get.sale({id:13241469729},function(d){
+//				S.log(d);
+//			});
+		GetHelper.use("sale").push({id : 7992161730, username : "xx"}, function (d) {
+			S.log(d);
+		});
+		GetHelper.use("item").push({id : 7992161730, username : "xx"}, function (d) {
+			S.log(d);
+		});
+		GetHelper.use("view").push({id : 13712928331}, function (d) {
+			S.log(d);
+		});
+
+		// get.view({id:13712928331},function(d){
+		// S.log(d);
+		// });
+		// get.view({id:13241469729},function(d){
+		// S.log(d);
+		// });
+		// get.view({id:15363789676},function(d){
+		// S.log(d);
+		// });
+		// get.p4p({id:111,count:2,pid:"xxx"},function(d){
+		// S.log(d);
+		// });
+		// get.p4p({id:222,count:5,pid:"xxx"},function(d){
+		// S.log(d);
+		// });
+		GetHelper.use("comment").get({id : 129866317, page : 1, pageSize : 20, order : 1}, function (d) {
+			S.log(d);
+		});
+
+	});
+</script>
+</body>
+</html>
