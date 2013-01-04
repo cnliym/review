@@ -5,7 +5,7 @@ KISSY.add('eventCenter',function(S){
 
 (function(S,D,$,E){
 
-	//掉落对象
+	//掉落的砖块对象模块
 	S.add('tetris/drop',function(S,EventCenter){
 		/**
 		 * 掉落的砖块对象
@@ -45,43 +45,50 @@ KISSY.add('eventCenter',function(S){
 			move:function(direct){
 				var self = this;
 				var prePosition=[],preAxis=[];
-				if(direct==="left"){
-					S.each(self.position,function(o,i){
-						var p=[];
-						p[0]=o[0];
-						p[1]=o[1]-1;
-						prePosition.push(p);
-					});
-					preAxis[0]=self.axis[0];
-					preAxis[1]=self.axis[1]-1;
-				}else if(direct==="right"){
-					S.each(self.position,function(o,i){
-						var p=[];
-						p[0]=o[0];
-						p[1]=o[1]+1;
-						prePosition.push(p);
-					});
-					preAxis[0]=self.axis[0];
-					preAxis[1]=self.axis[1]+1;
-				}else if(direct==="top"){
-					S.each(self.position,function(o,i){
-						var p=[];
-						p[0]=o[0]-1;
-						p[1]=o[1];
-						prePosition.push(p);
-					});
-					preAxis[0]=self.axis[0]-1;
-					preAxis[1]=self.axis[1];
-				}else{
-					S.each(self.position,function(o,i){
-						var p=[];
-						p[0]=o[0]+1;
-						p[1]=o[1];
-						prePosition.push(p);
-					});
-					preAxis[0]=self.axis[0]+1;
-					preAxis[1]=self.axis[1];
+
+				switch(direct){
+					case "left":								
+						S.each(self.position,function(o,i){
+							var p=[];
+							p[0]=o[0];
+							p[1]=o[1]-1;
+							prePosition.push(p);
+						});
+						preAxis[0]=self.axis[0];
+						preAxis[1]=self.axis[1]-1;
+						break;
+					case "right":								
+						S.each(self.position,function(o,i){
+							var p=[];
+							p[0]=o[0];
+							p[1]=o[1]+1;
+							prePosition.push(p);
+						});
+						preAxis[0]=self.axis[0];
+						preAxis[1]=self.axis[1]+1;
+						break;
+					case "top":								
+						S.each(self.position,function(o,i){
+							var p=[];
+							p[0]=o[0]-1;
+							p[1]=o[1];
+							prePosition.push(p);
+						});
+						preAxis[0]=self.axis[0]-1;
+						preAxis[1]=self.axis[1];
+						break;
+					default:								
+						S.each(self.position,function(o,i){
+							var p=[];
+							p[0]=o[0]+1;
+							p[1]=o[1];
+							prePosition.push(p);
+						});
+						preAxis[0]=self.axis[0]+1;
+						preAxis[1]=self.axis[1];
+						break;
 				}
+
 				var isMove = self.tetris.checkMove(prePosition) ;
 				if(isMove){
 					self.clear(self.position);
@@ -124,8 +131,7 @@ KISSY.add('eventCenter',function(S){
 				self.turnDirect=self.turnDirect||"right";
 				if(self.turn==0){
 					return;
-				}
-				if(self.turn==2){
+				}else if(self.turn==2){
 					self._rotate(self.turnDirect);
 					self.turnDirect=self.turnDirect==="right"?"left":"right";
 				}else{
@@ -168,8 +174,8 @@ KISSY.add('eventCenter',function(S){
 	S.add('tetris/block',function(S,EventCenter){
 		/**
 		 * 格子对象
-		 * @param {Nubmer} row 行坐标		
-		 * @param {Nubmer} col 列坐标	
+		 * @param {Number} row 行坐标		
+		 * @param {Number} col 列坐标	
 		 */
 		function Block(row,col){
 		    if (!(this instanceof arguments.callee)) {
@@ -307,8 +313,10 @@ KISSY.add('eventCenter',function(S){
 				var self=this;
 				self.level=level;
 				self._autoFall();
-
 			},
+			/**
+			 * 显示提示信息
+			 */
 			msgfn:function(msg){
 				var self = this;
 				clearTimeout(self.msgtime)
@@ -317,6 +325,9 @@ KISSY.add('eventCenter',function(S){
 					self.msgbox.html("").addClass("hidenone");
 				}, 800);
 			},
+			/**
+			 * 出现下一个砖块
+			 */
 			next:function(){
 				var self = this;
 				self.drop = self.viewDrop;				
@@ -443,7 +454,7 @@ KISSY.add('eventCenter',function(S){
 					self.attack(rows);
 					self.next();
 				}else{
-					self._gameover();
+					self.gameover();
 				}
 
 				//清落下
@@ -472,6 +483,9 @@ KISSY.add('eventCenter',function(S){
 					self.changeLevel(self.statsVal.level);
 				}
 			},
+			/**
+			 * 触发“突袭”事件
+			 */
 			attack:function(rows){
 				var self = this;
 				if(self.opt.attack){
@@ -486,47 +500,90 @@ KISSY.add('eventCenter',function(S){
 			keyboard: function(config){
 				var self=this;
 				var operate = config;
+				var keyDirect="",fire=false;
+				//直接落下
 				function mprphfn(){
 					clearInterval(self.mprphtime);
 					self.mprphtime = setInterval(function(){
 						self.drop.move();
-					},20)
-				}
-
-				self.keyBind=function(ev){
-					if(self.run){
-						switch(ev.keyCode){
-							case operate.drop:
-								ev.preventDefault();
-								mprphfn();
-								break
-							case operate.left:
-								ev.preventDefault();
-								self.drop.move('left');
-								break
-							case operate.morph:
-								ev.preventDefault();
-								self.drop.rotate();
-								break
-							case operate.right:
-								ev.preventDefault();
-								self.drop.move('right');
-								break
-							case operate.down:
-								ev.preventDefault();
-								self.drop.move();
-								break
-						}
+					},15)
+				};
+				//连续移动
+				function continuousMove(direct){
+					if(direct!==keyDirect){
+						keyDirect=direct;
+						fire=false;
+						clearInterval(self.continuousMove);
+						self.continuousMove = setInterval(function(){
+							self.drop.move(direct);
+							fire=true;
+						},100)
 					}
 				}
-				S.one('body').on('keydown',self.keyBind)
+				//停止移动
+				function stopMove(direct){
+					if(!fire){
+						self.drop.move(direct);
+					}
+					keyDirect="";
+					clearInterval(self.continuousMove);
+				}
+
+				self.keydownBind=function(ev){
+					if(self.run){
+						switch(ev.keyCode){
+							case operate.drop:								
+								mprphfn();
+								ev.preventDefault();
+								break;
+							case operate.morph:								
+								self.drop.rotate();
+								ev.preventDefault();
+								break;
+							case operate.left:								
+								continuousMove('left');
+								ev.preventDefault();
+								break;
+							case operate.right:								
+								continuousMove('right');
+								ev.preventDefault();
+								break;
+							case operate.down:								
+								continuousMove('down');
+								ev.preventDefault();
+								break;
+						}
+					}
+				};
+				self.keyupBind=function(ev){
+					if(self.run){
+						switch(ev.keyCode){
+							case operate.left:								
+								stopMove('left');
+								ev.preventDefault();
+								break;
+							case operate.right:								
+								stopMove('right');
+								ev.preventDefault();
+								break;
+							case operate.down:								
+								stopMove('down');
+								ev.preventDefault();
+								break;
+						}
+					}
+				};
+
+				S.one('body').on('keydown',self.keydownBind);
+				S.one('body').on('keyup',self.keyupBind);
 			},
 			/**
 			 * 解雇键盘事件
 			 */
 			detachKeyboard:function(){
 				var self=this;
-				S.one('body').detach('keydown',self.keyBind)
+				S.one('body').detach('keydown',self.keydownBind);
+				S.one('body').detach('keydown',self.keyupBind);
 			},
 			/**
 			 * 检测下个位置是否可以移动
@@ -585,7 +642,7 @@ KISSY.add('eventCenter',function(S){
 			/*
 			 * 游戏结束
 			 */
-			_gameover:function(){
+			gameover:function(){
 				var self = this;
 				if(EventCenter.fire("tetris/gameover",{"tetris":self})){
 					self.msgbox.html('GAMEOVER').removeClass('hidenone');
@@ -734,6 +791,9 @@ KISSY.add('eventCenter',function(S){
 			pause:".J_pause",
 			continuance:".J_continuance"
 		};
+		/**
+		 * 游戏控制对象
+		 */
 		function GameControl(tetris,config){
 		    if (!(this instanceof arguments.callee)) {
 		        return new arguments.callee(tetris,config);
@@ -751,7 +811,7 @@ KISSY.add('eventCenter',function(S){
 			},
 			bindTetris:function(tetris){
 				var self = this;
-				//新游戏
+				//游戏开始
 				self.startKey.on('click',function(ev){
 					self.msg=false;
 					if(S.isArray(tetris)){
@@ -763,7 +823,6 @@ KISSY.add('eventCenter',function(S){
 					}
 					
 				})
-
 				
 				//暂停
 				self.pauseKey.on('click',function(ev){
