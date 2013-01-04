@@ -583,7 +583,7 @@ KISSY.add('eventCenter',function(S){
 			detachKeyboard:function(){
 				var self=this;
 				S.one('body').detach('keydown',self.keydownBind);
-				S.one('body').detach('keydown',self.keyupBind);
+				S.one('body').detach('keyup',self.keyupBind);
 			},
 			/**
 			 * 检测下个位置是否可以移动
