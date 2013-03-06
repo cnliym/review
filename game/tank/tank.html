@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>tank——纪念苦逼的阿炳同学</title>
+	<script src="http://a.tbcdn.cn/??s/kissy/1.2.0/kissy-min.js"></script>
+	<link rel="stylesheet" href="http://a.tbcdn.cn//??p/global/1.0/global-min.css" />
+	<link rel="stylesheet" href="bee.css"></head>
+<body>
+
+<div id="content">
+  <div class="control">
+    <a href="#" class="J_PlayOption">设置</a>
+    <a href="#" class="J_PlayOne">单人游戏</a>
+    <div class="keytips">
+      操作：<br/>
+      左：←<br/>
+      右：→<br/>
+      下：↓<br/>
+    </div>
+    <!--<a href="#" class="J_PlayTwo">双人游戏</a>
+    <a href="#" class="J_PlayHelp">帮助</a>-->
+  </div>
+  <div class="depot J_TankBox hidden">
+<!--{{{-->
+    <dl class="tk-param-nav">
+      <dt>坦克：</dt>
+      <dd class="ks-switchable-nav">
+      <label><input name="style" type="radio" value='{"autoplay":false, "faceto":"up","style":"tk-greed","x":135,"y":270,"blood":5,"speed" :6,"bfrequency":600,"stat":{"bspeed":40,"bsize":10 }}' checked=checked /><div class="tk-greed-up tank-small"></div></label>
+      <label><input name="style" type="radio" value='{"autoplay":false, "faceto":"up","style":"tk-yellow","x":135,"y":270,"blood":20,"speed" :5,"bfrequency":800,"stat":{"bspeed":50,"bsize":10 }}' /><div class="tk-yellow-up tank-small"></div></label>
+      <label><input name="style" type="radio" value='{"autoplay":false, "faceto":"up","style":"tk-gray","x":135,"y":270,"blood":15,"speed" :4,"bfrequency":1200,"stat":{"bspeed":70,"bsize":10 }}' /><div class="tk-gray-up tank-small"></div></label>
+      <label><input name="style" type="radio" value='{"autoplay":false, "faceto":"up","style":"tk-red","x":135,"y":270,"blood":10,"speed" :4,"bfrequency":1000,"stat":{"bspeed":50,"bsize":10 }}' /><div class="tk-red-up tank-small"></div></label>
+      </dd>
+      <input type="hidden" value='{"autoplay":false, "faceto":"up","style":"tk-greed","x":135,"y":270,"blood":5,"speed" :6,"bfrequency":600,"stat":{"bspeed":40,"bsize":10 },"keycode" : {"left":37,"right":39,"fire":38}}' id="J_TankConfig" />
+    </dl>
+    <div class="tk-param-con ks-switchable-content">
+      <div class="tk-param-box hidden">
+<!--{{{-->
+        <dl>
+          <dt>攻击：</dt>
+          <dd>
+          <div class="progress-bar blue">
+            <span style="width:70%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>防御：</dt>
+          <dd>
+          <div class="progress-bar orange">
+            <span style="width:20%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>移动速度：</dt>
+          <dd>
+          <div class="progress-bar green">
+            <span style="width:60%"></span>
+          </div>
+          </dd>
+        </dl>
+<!--}}}-->
+      </div>
+      <div class="tk-param-box hidden">
+<!--{{{-->
+        <dl>
+          <dt>攻击：</dt>
+          <dd>
+          <div class="progress-bar blue">
+            <span style="width:30%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>防御：</dt>
+          <dd>
+          <div class="progress-bar orange">
+            <span style="width:80%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>移动速度：</dt>
+          <dd>
+          <div class="progress-bar green">
+            <span style="width:50%"></span>
+          </div>
+          </dd>
+        </dl>
+<!--}}}-->
+      </div>
+
+      <div class="tk-param-box hidden">
+<!--{{{-->
+        <dl>
+          <dt>攻击：</dt>
+          <dd>
+          <div class="progress-bar blue">
+            <span style="width:40%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>防御：</dt>
+          <dd>
+          <div class="progress-bar orange">
+            <span style="width:70%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>移动速度：</dt>
+          <dd>
+          <div class="progress-bar green">
+            <span style="width:40%"></span>
+          </div>
+          </dd>
+        </dl>
+<!--}}}-->
+      </div>
+
+      <div class="tk-param-box hidden">
+<!--{{{-->
+        <dl>
+          <dt>攻击：</dt>
+          <dd>
+          <div class="progress-bar blue">
+            <span style="width:40%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>防御：</dt>
+          <dd>
+          <div class="progress-bar orange">
+            <span style="width:60%"></span>
+          </div>
+          </dd>
+        </dl>
+        <dl>
+          <dt>移动速度：</dt>
+          <dd>
+          <div class="progress-bar green">
+            <span style="width:40%"></span>
+          </div>
+          </dd>
+        </dl>
+<!--}}}-->
+      </div>
+    </div>
+    <div class="tk-param-btn">
+      <button class="J_TankChoose">确定</button>
+    </div>
+<!--}}}-->
+  </div>
+
+  <div id="J_GameBox" class="battlefield hidden">
+
+  </div>
+  <script type="text/javascript" src="bee.js"></script>
+  <script type="text/javascript">
+  KISSY.use("bee,switchable",function(S,Bee,Switchable){
+    var $=S.all;
+
+    //{{{设置按钮
+    $(".J_PlayOption").on("click",function(evt){
+      evt.halt();
+      $(".control").hide();
+      $(".depot").show();
+    })
+    //}}}
+    var tabs = new Switchable.Tabs('.J_TankBox', {
+      triggerType : "click",
+			switchTo : 0
+		});
+    tabs.on('switch', function(evt) {
+      var val = $(".ks-switchable-nav").all("input").item(evt.currentIndex).val();
+      $("#J_TankConfig").val(val)
+      //S.log($(evt.currentTarget).val())
+		});
+
+    $(".J_TankChoose").on("click",function(evt){
+        evt.halt();
+        $(".depot").hide();
+        $(".control").show();
+    })
+
+      var game = new Bee("#J_GameBox");
+      $(".J_PlayOne").on("click",function(evt){
+//{{{单人游戏
+        evt.halt();
+        $(".control").hide();
+        $(".depot").hide();
+
+        var config = S.JSON.parse($("#J_TankConfig").val());
+        //创建什么样子的坦克
+        game.addPlayer1("#tank1",config);
+        //坦克2,1级坦克
+        game.addPlayer2("#tank2",1);
+
+        $(".battlefield").show();
+//}}}
+      })
+
+      //再来一次
+      $(document).delegate("click",".J_playAgain",function(evt){
+        $(".tk-result").remove();
+
+        var config = S.JSON.parse($("#J_TankConfig").val());
+        game.GameReset(config)
+        //game.addPlayer1("#tank1",config);
+      })
+      
+      //下一关
+      $(document).delegate("click",".J_playNext",function(evt){
+        var lv = +$(evt.currentTarget).attr("data-lev") +1;
+        $(".tk-result").remove();
+
+        game.addPlayer2("#tank2",lv);
+      })
+
+      //$(".J_PlayHelp").on("click",function(evt){
+      //  evt.halt();
+      //})
+
+      $(".J_PlayTwo").on("click",function(evt){
+//{{{双人游戏
+        evt.halt();
+        $(".control").hide();
+        $(".depot").hide();
+        $(".battlefield").show();
+
+        var config = S.JSON.parse($("#J_TankConfig").val());
+        //创建什么样子的坦克
+        game.addPlayer1("#tank1",config);
+        game.addPlayer2("#tank2",{
+          autoplay  : false, //是否为AI
+          faceto  : "down", //手动控制
+          style  : "tk-greed",//默认坦克外观
+          width  : 30,//默认坦克宽
+          height : 30 ,//默认坦克高
+          x   : 135,//默认坦克位置
+          y    : 0, //self.height - 30
+          blood : 1,//血量
+          speed : 4,//移动速度 移动一次4 px
+          bfrequency: 1000, //射击频率 ms
+          stat : {
+             "bspeed": 80, //子弹速度 ms
+             "bsize" : 10, //子弹大小 px
+             "attack": 1 //炮管数 预留
+          },
+          keycode : {
+             "left": 68, //D键
+             "right" : 65, //S键
+             "fire": 32 // 空格键
+          }
+        });
+        //}}}
+      })
+  })
+  </script>
+</div>
+<!--
+    <div class="control-btn"></div>
+    -->
+</body>
+</html>

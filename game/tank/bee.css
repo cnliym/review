@@ -1,0 +1,153 @@
+.hidden{display:none;}
+#content{width:300px; height:300px; margin:100px auto 0; position:relative; overflow:hidden;background:#000;}
+.keytips{color:#fff;}
+
+.battlefield{width:300px; height:300px; background:#000; position:relative; }
+
+
+/*tk样式*/
+.tank{height:30px; width:30px; -webkit-background-size: 100% 100%; -o-background-size: 100% 100%; position:absolute;}
+.tk-red-up{background:url(images/red_up.png) no-repeat;}
+.tk-red-down{background:url(images/red_down.png) no-repeat;}
+.tk-greed-up{background:url(images/greed_up.png) no-repeat;}
+.tk-greed-down{background:url(images/greed_down.png) no-repeat;}
+.tk-gray-up{background:url(images/gray_up.png) no-repeat;}
+.tk-gray-down{background:url(images/gray_down.png) no-repeat;}
+.tk-yellow-up{background:url(images/yellow_up.png) no-repeat;}
+.tk-yellow-down{background:url(images/yellow_down.png) no-repeat;}
+.tk-destory{background:url(images/tk_destory.gif) no-repeat;}
+
+.tank-small{height:15px; width:15px; -webkit-background-size:15px 15px; display:inline-block;}
+.tk-result{text-align:center; width:auto; color:#fff; font-size:24px; padding-top:100px;}
+.tk-result a{color:#fff; font-size:14px;}
+
+.tk-blood{
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=##7fffffff,endColorstr=##7fffffff)/9; /* ie6-8 */
+  background: rgba(255,255,255,0.5); /* css3 */
+  font-size:8px;
+  font-family:sans-serif;
+  padding:1px;
+}
+.enemy{height:30px; width:30px; background:blue; position:absolute;}
+
+.bullet{background:red; position:absolute; }
+.enemy-bullet{background:black;}
+.bulletExplode{background:url(images/exp.png) center no-repeat;}
+
+
+.zero{height:5px; width:5px; background:#000; position:absolute;}
+.begin{top:0px; left:0px;}
+.end{top:300px; left:300px;}
+
+/*初始界面*/
+.control{ text-align:center; margin:0 auto; width:80px; padding-top:40px;}
+.control a{display:block; width:80px; height:24px; line-height:24px; border:2px solid #676f5a; color:#373d21; font-size:14px; background:#c7cfa6;  -webkit-border-radius: 5px; border-radius: 5px;box-shadow: 0 0 5px 0 #929780 inset; margin:20px 0; font-family:"微软雅黑"}
+.control a:hover {text-decoration:none; color:#c7cfa6; background:#373d21; }
+
+
+/*设置*/
+.depot{
+  color:#c7cfa6;
+  width:200px; 
+  height:300px;
+  margin:0 auto; 
+  text-align:left;
+  padding-top:20px;
+}
+.depot dl{overflow:hidden;}
+.depot dl dt{float:left; width:50px;}
+.depot dl dd{float:left;}
+
+.tk-param-nav{
+
+}
+.tk-param-nav label{
+  margin-right:4px;
+}
+.tk-param-nav input{
+  margin-right:2px;
+}
+.tk-param-con{
+  background:#373d21;
+  padding:5px;
+  overflow:hidden;
+  position: relative;
+  width:190px;
+}
+
+.progress-bar {
+  background-color: #1a1a1a;
+  height: 10px;
+  padding: 5px;
+  width: 100px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+  -webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+  box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;           
+}
+     
+.progress-bar span {
+  cursor:pointer;
+  display: block;
+  height: 100%;
+  font-size:0;
+  overflow:hidden;
+ 	background-color: #777;
+  -moz-border-radius: 3px;
+ 	-webkit-border-radius: 3px;
+ 	border-radius: 3px;
+  -moz-box-shadow    : 0 1px 0 rgba(255, 255, 255, .5) inset;
+ 	-webkit-box-shadow : 0 1px 0 rgba(255, 255, 255, .5) inset;
+ 	box-shadow         : 0 1px 0 rgba(255, 255, 255, .5) inset;
+ 	-webkit-transition : width .4s ease-in-out;
+ 	-moz-transition    : width .4s ease-in-out;
+ 	-ms-transition     : width .4s ease-in-out;
+ 	-o-transition      : width .4s ease-in-out;
+ 	transition         : width .4s ease-in-out;
+}
+.progress-bar span:hover {
+  -webkit-box-shadow:0px 0px 6px #fff;
+  -moz-box-shadow:0px 0px 6px #fff;
+}
+.blue span {
+  background-color: #34c2e3;   
+}
+.orange span {
+  background-color: #fecf23;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fecf23), to(#fd9215));
+  background-image: -webkit-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -moz-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -ms-linear-gradient(top, #fecf23, #fd9215);
+  background-image: -o-linear-gradient(top, #fecf23, #fd9215);
+  background-image: linear-gradient(top, #fecf23, #fd9215);  
+}	
+.green span {
+  background-color: #a5df41;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#a5df41), to(#4ca916));
+  background-image: -webkit-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -moz-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -ms-linear-gradient(top, #a5df41, #4ca916);
+  background-image: -o-linear-gradient(top, #a5df41, #4ca916);
+  background-image: linear-gradient(top, #a5df41, #4ca916);  
+}		
+
+
+.tk-param-btn{
+  width:40px;
+  margin:0 auto;
+}
+.tk-param-btn button{
+  width:40px;
+  border:2px solid #676f5a; 
+  color:#373d21; 
+  font-size:14px; 
+  background:#c7cfa6;  
+  -webkit-border-radius: 5px; 
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 #929780 inset; 
+  font-family:"微软雅黑";
+  margin:0 auto;
+  cursor:pointer;
+}
